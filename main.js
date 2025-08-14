@@ -19,7 +19,7 @@ const syntax = [
     {symbol:"default", key:"paragraphs"},
 ];
 
-function startsWithoutSymbol(string) {
+function startsWithoutSymbol(string) { //will be useful later to determine if a statement should use the default rule.
     for (rule of syntax) {
         if (string.charAt(0) == rule.symbol) {
             return false;
@@ -28,7 +28,7 @@ function startsWithoutSymbol(string) {
     return true;
 }
 
-function getStatementIndexes(string) {
+function getSymbolIndexes(string) {
 
     let indexes = [0]; //start of string added even if symbol is abscent.
 
@@ -43,11 +43,11 @@ function getStatementIndexes(string) {
     return indexes;
 }
 
-function separateStatements(string) {
+function splitAtSymbols(string) {
 
     let statements = [];
     
-    let indexes = getStatementIndexes(string);
+    let indexes = getSymbolIndexes(string);
     
     for (let i = 0; i < indexes.length; i++) {
         
@@ -66,18 +66,22 @@ function separateStatements(string) {
     return statements;
 }
 
-function getStatements(string) {
-
+function splitAtLines(string) {
     let lines = string.split(/\r?\n/); //split into lines
     lines = lines.map(line => line.trim()) //remove whitespace
     lines = lines.filter(line => line.length != 0); //remove empty lines
+    return lines;
+}
+
+function getStatements(string) {
 
     let statements = [];
 
+    let lines = splitAtLines(string);
     for (let line of lines) {
-        let lineStatements = separateStatements(line);
-        for (let statement of lineStatements) {
-            statements.push(statement);
+        let lineStatements = splitAtSymbols(line);
+        for (let lineStatement of lineStatements) {
+            statements.push(lineStatement);
         }
     }
 
