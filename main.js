@@ -58,7 +58,7 @@ function splitAtSymbols(string) {
             end = indexes[i+1];
         }
 
-        let statement = string.slice(start, end);
+        let statement = string.slice(start, end).trim();
 
         statements.push(statement);
     }
@@ -67,11 +67,12 @@ function splitAtSymbols(string) {
 }
 
 function splitAtLines(string) {
-    let lines = string.split(/\r?\n/); //split into lines
+    let lines = string.split(/\r?\n/); //split into lines. !!! could I use a regular expression like this to include all dynamic symbols?
     lines = lines.map(line => line.trim()) //remove whitespace
     lines = lines.filter(line => line.length != 0); //remove empty lines
     return lines;
 }
+
 
 function getStatements(string) {
 
