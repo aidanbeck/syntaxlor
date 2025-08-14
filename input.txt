@@ -7,7 +7,7 @@
  You walk back down the road.
 
 *Force it open. -axe @breakIn <1
- You swing the axe at the door- it doesn't budge. You try again, harder this time, and it cracks.
+ You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks.
  The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open.
 
 *Empty                   ~breakIn Enter. > lighthouse 2

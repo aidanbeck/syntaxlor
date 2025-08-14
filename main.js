@@ -10,6 +10,11 @@ const syntax = [
     {symbol:"~", key: 'alterationKey'},
     {symbol:"*", key: 'prompt'},
     {symbol:">", key: 'pathKey'},
+    {symbol:"@", key: 'enableAlter'},
+    {symbol:"<", key: 'limit'},
+    {symbol:"$", key: 'needs'},
+    {symbol:"-", key: 'takes'},
+    {symbol:"+", key: 'gives'},
 
 
     {symbol:"default", key:"paragraphs"},
