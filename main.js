@@ -5,63 +5,63 @@ let input = fs.readFileSync('input.txt','utf-8');
 
 
 const syntax = [
-    {symbol:'#', key: 'roomKey'},
-    {symbol:"%", key: 'locationKey'},
-    {symbol:"~", key: 'alterationKey'},
-    {symbol:"*", key: 'prompt'},
-    {symbol:">", key: 'pathKey'},
-    {symbol:"@", key: 'enableAlter'},
+    {symbol:'#', key: 'roomKey'}, // doesn't have any name in old cove, it's just the key given to the room.
+    {symbol:"%", key: 'givenLocation'},
+    {symbol:"~", key: 'alteration'}, // functionality will change, used to be a different kind of object that would swap in.
+    {symbol:"*", key: 'buttonPrompt'},
+    {symbol:">", key: 'targetKey'},
+    {symbol:"@", key: 'enableAlter'}, // the name of this might change, it will be a string added to a state list, identifiable as a signal whenever a room is used. Room will detect this string, the alter won't go find the room (probably)
     {symbol:"<", key: 'limit'},
-    {symbol:"$", key: 'needs'},
-    {symbol:"-", key: 'takes'},
-    {symbol:"+", key: 'gives'},
-
+    {symbol:"$", key: 'requiredItem'},
+    {symbol:"-", key: 'takenItem'}, // works a bit differently in old cove, used to be "takesItem" variable which changes "requiredItem" behavior. But this allows for easier prototyping, so I'll change functionality to match.
+    {symbol:"+", key: 'givenItem'},
 
     {symbol:"default", key:"paragraphs"},
 ];
 
 
-let lines = input.split(/\r?\n/); //split array into lines
+let lines = input.split(/\r?\n/); //split into lines
 lines = lines.map(line => line.trim()) //remove whitespace
 lines = lines.filter(line => line.length != 0); //remove empty lines
 
-function getSymbolIndexes(string) {
-    let symbolIndexes = [];
 
-    let startsWithoutSymbol = true;
+function startsWithoutSymbol(string) {
+    for (rule of syntax) {
+        if (string.charAt(0) == rule.symbol) {
+            return false;
+        }
+    }
+    return true;
+}
 
-    for (let index = 0; index < string.length; index++) { // for each character
+function getStatementIndexes(string) {
 
-        
+    let indexes = [0]; //start of string added even if symbol is abscent.
 
+    for (let index = 1; index < string.length; index++) { // for each character
         for (rule of syntax) {                            // for each rule
-            if (string.charAt(index) == rule.symbol && string.charAt(index-1) != "\\") { //if the character == the rule's symbol (and isn't ignored)
-                symbolIndexes.push({key: rule.key, index: index});  // push the rule's key and symbol's index
-                startsWithoutSymbol = false;
+            if (string.charAt(index) == rule.symbol) {    //if the character == the rule's symbol (and isn't ignored)
+                if (string.charAt(index-1) == "`") { continue; } // skip if preceded by a `
+                indexes.push(index);
             }
         }
     }
-
-    if (startsWithoutSymbol) {
-        symbolIndexes.unshift([{key: "default", index:0}]);
-    }
-
-    return symbolIndexes;
+    return indexes;
 }
 
-function getLineStatements(string) {
+function separateStatements(string) {
 
     let statements = [];
     
-    let symbolIndexes = getSymbolIndexes(string);
+    let indexes = getStatementIndexes(string);
     
-    for (let i = 0; i < symbolIndexes.length; i++) {
+    for (let i = 0; i < indexes.length; i++) {
         
-        let start = symbolIndexes[i].index;
+        let start = indexes[i];
         let end = string.length;
 
-        if (i+1 != symbolIndexes.length) {
-            end = symbolIndexes[i+1].index;
+        if (i+1 != indexes.length) {
+            end = indexes[i+1];
         }
 
         let statement = string.slice(start, end);
@@ -75,10 +75,8 @@ function getLineStatements(string) {
 let output = [];
 
 for (let line of lines) {
-    let statements = getLineStatements(line);
+    let statements = separateStatements(line);
     output.push(statements);
 }
-
-console.log(output);
 
 fs.writeFileSync(`output.json`, JSON.stringify(output));
