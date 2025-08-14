@@ -6,7 +6,7 @@ While JSON is human readible and writable, the syntax won't meet every project's
 
 ## Old Cove Examples.
 Syntaxlor solves a design program for my text based game [Old Cove](github.com/aidanbeck/old-cove).
-The narrative's room & path structure can be defined with JSON, but it is incredibly verbose. Writing directly in JavaScript allowed me to use helper functions, which alleviate this but left much to be desired.
+The narrative's room & path structure can be defined with JSON, but it is incredibly verbose. Writing directly in JavaScript allowed me to use helper functions, which alleviates this but left much to be desired.
 
 
 **An Example of an Old Cove room**
@@ -27,7 +27,7 @@ R['lighthouse'] = new Room(
     'lighthouse'
 );
 ```
-This room requires you to scroll horizontally and remember function input orders. It requires a lot of symbols and formatting.
+This room requires horizontal scrolling and memorized function inputs. It requires extensive symbols and formatting.
 
 **The Same Room with Tailored Syntax**
 ```
@@ -44,14 +44,14 @@ This room requires you to scroll horizontally and remember function input orders
  The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open.
 
 *Empty					 ~breakIn Enter. > lighthouse 2
- 					  *You hesitate before walking inside.
+ 					      You hesitate before walking inside.
 ```
 This room is more readible, and faster to edit.
-It still requires that the author memorize certiain single-character symbols, but this is more streamlined and achievable for non-developers.
+It still requires that the author memorizes syntax symbols, but is streamlined and achievable for non-developers.
 
 
 **Syntax Symbols Tailored to Old Cove.**
-
+```
 room key   #room key
 location   %room key
 alteration ~stateString
@@ -59,12 +59,13 @@ alteration ~stateString
 path       *prompt
 move       >room key
 
-alter @stateString
-limit <number
-needs $itemKey
-takes -itemKey
-gives +itemKey
+alter      @stateString
+limit      <number
+needs      $itemKey
+takes      -itemKey
+gives      +itemKey
 
-ignored \#text
-comment //text
-empty empty
+ignored    \#text
+comment    //text
+empty      empty
+```
