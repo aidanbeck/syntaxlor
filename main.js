@@ -19,12 +19,6 @@ const syntax = [
     {symbol:"default", key:"paragraphs"},
 ];
 
-
-let lines = input.split(/\r?\n/); //split into lines
-lines = lines.map(line => line.trim()) //remove whitespace
-lines = lines.filter(line => line.length != 0); //remove empty lines
-
-
 function startsWithoutSymbol(string) {
     for (rule of syntax) {
         if (string.charAt(0) == rule.symbol) {
@@ -72,11 +66,25 @@ function separateStatements(string) {
     return statements;
 }
 
-let output = [];
+function getStatements(string) {
 
-for (let line of lines) {
-    let statements = separateStatements(line);
-    output.push(statements);
+    let lines = string.split(/\r?\n/); //split into lines
+    lines = lines.map(line => line.trim()) //remove whitespace
+    lines = lines.filter(line => line.length != 0); //remove empty lines
+
+    let statements = [];
+
+    for (let line of lines) {
+        let lineStatements = separateStatements(line);
+        for (let statement of lineStatements) {
+            statements.push(statement);
+        }
+    }
+
+    return statements;
 }
+
+let output = getStatements(input);
+console.log(output);
 
 fs.writeFileSync(`output.json`, JSON.stringify(output));
