@@ -45,7 +45,7 @@ function getSymbolIndexes(string) {
 
 function splitAtSymbols(string) {
 
-    let statements = [];
+    let lineStatements = [];
     
     let indexes = getSymbolIndexes(string);
     
@@ -60,10 +60,10 @@ function splitAtSymbols(string) {
 
         let statement = string.slice(start, end).trim();
 
-        statements.push(statement);
+        lineStatements.push(statement);
     }
 
-    return statements;
+    return lineStatements;
 }
 
 function splitAtLines(string) {
@@ -72,7 +72,6 @@ function splitAtLines(string) {
     lines = lines.filter(line => line.length != 0); //remove empty lines
     return lines;
 }
-
 
 function getStatements(string) {
 
@@ -89,7 +88,29 @@ function getStatements(string) {
     return statements;
 }
 
-let output = getStatements(input);
+function getCommand(statement) {
+    for (let rule of syntax) {
+        if (statement.charAt(0) == rule.symbol) {
+            let value = statement.slice(1,statement.length).trim();
+            return {key: rule.key, value: value };
+        }
+    }
+    return {key: "paragraphs", value: statement.trim() }; //default. needs a way to get the default key (paragraphs)
+}
+
+function getCommands(string) {
+    let statements = getStatements(string);
+    let commands = [];
+    for (let statement of statements) {
+        let command = getCommand(statement);
+        commands.push(command);
+    }
+
+    return commands;
+}
+
+
+let output = getCommands(input);
 console.log(output);
 
 fs.writeFileSync(`output.json`, JSON.stringify(output));
