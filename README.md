@@ -44,7 +44,7 @@ This room requires horizontal scrolling and memorized function inputs. It requir
  The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open.
 
 *Empty
-^breakIn *Enter > lighthouse 2
+^breakIn Enter > lighthouse 2
  You hesitate before walking inside.
 ```
 This room is more readible, and faster to edit.
