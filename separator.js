@@ -1,5 +1,5 @@
 function startsWithoutSymbol(string, syntax) { //will be useful later to determine if a statement should use the default rule.
-    for (rule of syntax) {
+    for (rule of syntax.rules) {
         if (string.charAt(0) == rule.symbol) {
             return false;
         }
@@ -12,7 +12,7 @@ function getSymbolIndexes(string, syntax) {
     let indexes = [0]; //start of string added even if symbol is abscent.
 
     for (let index = 1; index < string.length; index++) { // for each character
-        for (rule of syntax) {                            // for each rule
+        for (rule of syntax.rules) {                            // for each rule
             if (string.charAt(index) == rule.symbol) {    //if the character == the rule's symbol (and isn't ignored)
                 if (string.charAt(index-1) == "`") { continue; } // skip if preceded by a `
                 indexes.push(index);
@@ -68,13 +68,13 @@ function getStatements(string, syntax) {
 }
 
 function getCommand(statement, syntax) {
-    for (let rule of syntax) {
+    for (let rule of syntax.rules) {
         if (statement.charAt(0) == rule.symbol) {
             let value = statement.slice(1,statement.length).trim();
-            return {rule: rule, value: value };
+            return {rule: rule, value: value }; // could instead safe the index of each rule?
         }
     }
-    return {key: "paragraphs", value: statement.trim() }; //default. needs a way to get the default key (paragraphs)
+    return {rule: syntax.default, value: statement.trim() }; // default/no symbol rule
 }
 
 function getCommands(string, syntax) {
