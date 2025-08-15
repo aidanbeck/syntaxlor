@@ -1,0 +1,59 @@
+{
+    "lighthouse": {
+        "givenLocation": "lighthouse",
+        "paragraphs": [
+            {
+                "default": "The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it."
+            },
+            {
+                "default": "You try the door, but it seems jammed.",
+                "breakIn": "The door is wide open, the head of an axe embedded into its front."
+            },
+            {
+                "default": "Empty",
+                "breakIn": "What used to be a handle is now splinters on the ground."
+            }
+        ],
+        "paths": [
+            {
+                "default": {
+                    "buttonPrompt": "Return to the road.",
+                    "targetKey": "a road",
+                    "paragraphs": [
+                        { "default": "You walk back down the road" }
+                    ]
+                }
+            },
+            {
+                "default": {
+                    "buttonPrompt": "Force it open.",
+                    "targetKey": "lighthouse",
+                    "takenItem": "axe",
+                    "enableAlter": "breakIn",
+                    "limit": 1,
+                    "paragraphs": [
+                        { "default": "You swing the axe at the door- it doesn't budge. You try again, harder this time, and it cracks." },
+                        { "default": "The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open." }
+                    ]
+                }
+            },
+            {
+                "default": {
+                    "buttonPrompt": "Empty"
+                },
+                "breakIn": {
+                    "buttonPrompt": "Enter.",
+                    "targetKey": "lighthouse 2",
+                    "paragraphs": [
+                        { "default": "You hesitate before walking inside." }
+                    ]
+                }
+            }
+        ]
+    },
+    "comments": [
+        "I might need to have a seperate symbol for paragraph alterations and entire path alterations.",
+        "perhaps ^ for path alterations",
+        "because if I have ~ be a proper child for defaults, then using ~ after a path will just add the alter to the description"
+    ]
+}
