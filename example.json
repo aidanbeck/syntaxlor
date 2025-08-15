@@ -54,6 +54,8 @@
     "comments": [
         "I might need to have a seperate symbol for paragraph alterations and entire path alterations.",
         "perhaps ^ for path alterations",
-        "because if I have ~ be a proper child for defaults, then using ~ after a path will just add the alter to the description"
+        "because if I have ~ be a proper child for defaults, then using ~ after a path will just add the alter to the description",
+        "I added ^ to the README example. It could be used for paths, or it could be used for switching out entire rooms OR paths.",
+        "Though that may not work either, since ^ would still likely be under the paths themselves. The difference is that # or * would follow. Hmmmm"
     ]
 }

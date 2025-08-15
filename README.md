@@ -43,8 +43,9 @@ This room requires horizontal scrolling and memorized function inputs. It requir
  You swing the axe at the door- it doesn't budge. You try again, harder this time, and it cracks.
  The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open.
 
-*Empty					 ~breakIn Enter. > lighthouse 2
- 					      You hesitate before walking inside.
+*Empty
+^breakIn *Enter > lighthouse 2
+ You hesitate before walking inside.
 ```
 This room is more readible, and faster to edit.
 It still requires that the author memorizes syntax symbols, but is streamlined and achievable for non-developers.
