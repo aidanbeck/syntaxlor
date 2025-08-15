@@ -1,8 +1,8 @@
 const fs = require('fs');
+const getCommands = require('./separator');
 
 //fs.existsSync('input.txt');
 let input = fs.readFileSync('input.txt','utf-8');
-
 
 const syntax = [
     {symbol:'#', key: 'roomKey'}, // doesn't have any name in old cove, it's just the key given to the room.
@@ -19,98 +19,7 @@ const syntax = [
     {symbol:"default", key:"paragraphs"},
 ];
 
-function startsWithoutSymbol(string) { //will be useful later to determine if a statement should use the default rule.
-    for (rule of syntax) {
-        if (string.charAt(0) == rule.symbol) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function getSymbolIndexes(string) {
-
-    let indexes = [0]; //start of string added even if symbol is abscent.
-
-    for (let index = 1; index < string.length; index++) { // for each character
-        for (rule of syntax) {                            // for each rule
-            if (string.charAt(index) == rule.symbol) {    //if the character == the rule's symbol (and isn't ignored)
-                if (string.charAt(index-1) == "`") { continue; } // skip if preceded by a `
-                indexes.push(index);
-            }
-        }
-    }
-    return indexes;
-}
-
-function splitAtSymbols(string) {
-
-    let lineStatements = [];
-    
-    let indexes = getSymbolIndexes(string);
-    
-    for (let i = 0; i < indexes.length; i++) {
-        
-        let start = indexes[i];
-        let end = string.length;
-
-        if (i+1 != indexes.length) {
-            end = indexes[i+1];
-        }
-
-        let statement = string.slice(start, end).trim();
-
-        lineStatements.push(statement);
-    }
-
-    return lineStatements;
-}
-
-function splitAtLines(string) {
-    let lines = string.split(/\r?\n/); //split into lines. !!! could I use a regular expression like this to include all dynamic symbols?
-    lines = lines.map(line => line.trim()) //remove whitespace
-    lines = lines.filter(line => line.length != 0); //remove empty lines
-    return lines;
-}
-
-function getStatements(string) {
-
-    let statements = [];
-
-    let lines = splitAtLines(string);
-    for (let line of lines) {
-        let lineStatements = splitAtSymbols(line);
-        for (let lineStatement of lineStatements) {
-            statements.push(lineStatement);
-        }
-    }
-
-    return statements;
-}
-
-function getCommand(statement) {
-    for (let rule of syntax) {
-        if (statement.charAt(0) == rule.symbol) {
-            let value = statement.slice(1,statement.length).trim();
-            return {key: rule.key, value: value };
-        }
-    }
-    return {key: "paragraphs", value: statement.trim() }; //default. needs a way to get the default key (paragraphs)
-}
-
-function getCommands(string) {
-    let statements = getStatements(string);
-    let commands = [];
-    for (let statement of statements) {
-        let command = getCommand(statement);
-        commands.push(command);
-    }
-
-    return commands;
-}
-
-
-let output = getCommands(input);
+let output = getCommands(input, syntax);
 console.log(output);
 
 fs.writeFileSync(`output.json`, JSON.stringify(output));
