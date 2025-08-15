@@ -71,7 +71,7 @@ function getCommand(statement, syntax) {
     for (let rule of syntax) {
         if (statement.charAt(0) == rule.symbol) {
             let value = statement.slice(1,statement.length).trim();
-            return {key: rule.key, value: value };
+            return {rule: rule, value: value };
         }
     }
     return {key: "paragraphs", value: statement.trim() }; //default. needs a way to get the default key (paragraphs)
