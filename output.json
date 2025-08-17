@@ -1,1 +1,211 @@
-{"rule":{"key":"main"},"rooms":[{"rule":{"symbol":"#","key":"rooms","parentKeys":["main"]},"value":"lighthouse","givenLocations":[{"rule":{"symbol":"%","key":"givenLocations","parentKeys":["rooms"]},"value":"lighthouse"}],"paragraphs":[{"rule":{"symbol":"default","key":"paragraphs","parentKeys":["rooms","buttonPrompt"]},"value":"The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it."},{"rule":{"symbol":"default","key":"paragraphs","parentKeys":["rooms","buttonPrompt"]},"value":"You try the door, but it seems jammed."}],"buttonPrompt":[{"rule":{"symbol":"*","key":"buttonPrompt","parentKeys":["rooms"]},"value":"Return to the road.","targetKey":[{"rule":{"symbol":">","key":"targetKey","parentKeys":["buttonPrompt"]},"value":"a road"}],"paragraphs":[{"rule":{"symbol":"default","key":"paragraphs","parentKeys":["rooms","buttonPrompt"]},"value":"You walk back down the road."}]},{"rule":{"symbol":"*","key":"buttonPrompt","parentKeys":["rooms"]},"value":"Force it open.","takenItem":[{"rule":{"symbol":"-","key":"takenItem","parentKeys":["buttonPrompt"]},"value":"axe"}],"enableAlters":[{"rule":{"symbol":"@","key":"enableAlters","parentKeys":["buttonPrompt"]},"value":"breakIn"}],"limit":[{"rule":{"symbol":"<","key":"limit","parentKeys":["buttonPrompt"]},"value":"1"}],"paragraphs":[{"rule":{"symbol":"default","key":"paragraphs","parentKeys":["rooms","buttonPrompt"]},"value":"You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks."},{"rule":{"symbol":"default","key":"paragraphs","parentKeys":["rooms","buttonPrompt"]},"value":"The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open."}]}]},{"rule":{"symbol":"#","key":"rooms","parentKeys":["main"]},"value":"living room","givenLocations":[{"rule":{"symbol":"%","key":"givenLocations","parentKeys":["rooms"]},"value":"lighthouse"}],"paragraphs":[{"rule":{"symbol":"default","key":"paragraphs","parentKeys":["rooms","buttonPrompt"]},"value":"It's a beautiful living room."}],"buttonPrompt":[{"rule":{"symbol":"*","key":"buttonPrompt","parentKeys":["rooms"]},"value":"Leave the room.","targetKey":[{"rule":{"symbol":">","key":"targetKey","parentKeys":["buttonPrompt"]},"value":"lighthouse"}],"paragraphs":[{"rule":{"symbol":"default","key":"paragraphs","parentKeys":["rooms","buttonPrompt"]},"value":"You leave."}]}]}]}
+{
+    "lighthouse": {
+        "givenLocations": [
+            {
+                "rule": {
+                    "symbol": "%",
+                    "key": "givenLocations",
+                    "parentKeys": [
+                        "rooms"
+                    ]
+                },
+                "value": "lighthouse"
+            }
+        ],
+        "paragraphs": [
+            {
+                "rule": {
+                    "symbol": "default",
+                    "key": "paragraphs",
+                    "parentKeys": [
+                        "rooms",
+                        "buttonPrompt"
+                    ]
+                },
+                "value": "The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it."
+            },
+            {
+                "rule": {
+                    "symbol": "default",
+                    "key": "paragraphs",
+                    "parentKeys": [
+                        "rooms",
+                        "buttonPrompt"
+                    ]
+                },
+                "value": "You try the door, but it seems jammed."
+            }
+        ],
+        "buttonPrompt": [
+            {
+                "rule": {
+                    "symbol": "*",
+                    "key": "buttonPrompt",
+                    "parentKeys": [
+                        "rooms"
+                    ]
+                },
+                "value": "Return to the road.",
+                "targetKey": [
+                    {
+                        "rule": {
+                            "symbol": ">",
+                            "key": "targetKey",
+                            "parentKeys": [
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "a road"
+                    }
+                ],
+                "paragraphs": [
+                    {
+                        "rule": {
+                            "symbol": "default",
+                            "key": "paragraphs",
+                            "parentKeys": [
+                                "rooms",
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "You walk back down the road."
+                    }
+                ]
+            },
+            {
+                "rule": {
+                    "symbol": "*",
+                    "key": "buttonPrompt",
+                    "parentKeys": [
+                        "rooms"
+                    ]
+                },
+                "value": "Force it open.",
+                "takenItem": [
+                    {
+                        "rule": {
+                            "symbol": "-",
+                            "key": "takenItem",
+                            "parentKeys": [
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "axe"
+                    }
+                ],
+                "enableAlters": [
+                    {
+                        "rule": {
+                            "symbol": "@",
+                            "key": "enableAlters",
+                            "parentKeys": [
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "breakIn"
+                    }
+                ],
+                "limit": [
+                    {
+                        "rule": {
+                            "symbol": "<",
+                            "key": "limit",
+                            "parentKeys": [
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "1"
+                    }
+                ],
+                "paragraphs": [
+                    {
+                        "rule": {
+                            "symbol": "default",
+                            "key": "paragraphs",
+                            "parentKeys": [
+                                "rooms",
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks."
+                    },
+                    {
+                        "rule": {
+                            "symbol": "default",
+                            "key": "paragraphs",
+                            "parentKeys": [
+                                "rooms",
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open."
+                    }
+                ]
+            }
+        ]
+    },
+    "living room": {
+        "givenLocations": [
+            {
+                "rule": {
+                    "symbol": "%",
+                    "key": "givenLocations",
+                    "parentKeys": [
+                        "rooms"
+                    ]
+                },
+                "value": "lighthouse"
+            }
+        ],
+        "paragraphs": [
+            {
+                "rule": {
+                    "symbol": "default",
+                    "key": "paragraphs",
+                    "parentKeys": [
+                        "rooms",
+                        "buttonPrompt"
+                    ]
+                },
+                "value": "It's a beautiful living room."
+            }
+        ],
+        "buttonPrompt": [
+            {
+                "rule": {
+                    "symbol": "*",
+                    "key": "buttonPrompt",
+                    "parentKeys": [
+                        "rooms"
+                    ]
+                },
+                "value": "Leave the room.",
+                "targetKey": [
+                    {
+                        "rule": {
+                            "symbol": ">",
+                            "key": "targetKey",
+                            "parentKeys": [
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "lighthouse"
+                    }
+                ],
+                "paragraphs": [
+                    {
+                        "rule": {
+                            "symbol": "default",
+                            "key": "paragraphs",
+                            "parentKeys": [
+                                "rooms",
+                                "buttonPrompt"
+                            ]
+                        },
+                        "value": "You leave."
+                    }
+                ]
+            }
+        ]
+    }
+}

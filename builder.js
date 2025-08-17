@@ -5,6 +5,21 @@ function isEligibleParent(parent, command) {
     return false;
 }
 
+function converter(main) {
+    delete main.rule;
+
+    let reKeyed = {}
+
+    for (let room of main.rooms) {
+        console.log(room.value);
+        reKeyed[room.value] = room;
+        delete reKeyed[room.value].rule;
+        delete reKeyed[room.value].value; //this needs to be deleted last so the room can be identified
+    }
+
+    return reKeyed;
+}
+
 function builder(commands) {
     let main = {
         rule: {
@@ -21,12 +36,9 @@ function builder(commands) {
         let parent = parentChain[parentChain.length - 1];
 
         if (!isEligibleParent(parent, command)) {
-            console.log(`${parent.rule.key} is not a proper parent of ${command.rule.key}`);
             parentChain.pop();
             i--;
             continue;
-        } else {
-            console.log(`Add ${command.rule.key} to ${parent.rule.key}`);
         }
 
         if (typeof parent[command.rule.key] == 'undefined') {
@@ -39,7 +51,7 @@ function builder(commands) {
         parentChain.push(command);
     }
 
-    return main;
+    return converter(main);
 }
 
 module.exports = builder;
