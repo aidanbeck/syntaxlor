@@ -22,7 +22,11 @@ function builder(commands) {
 
         if (!isEligibleParent(parent, command)) {
             console.log(`${parent.rule.key} is not a proper parent of ${command.rule.key}`);
+            parentChain.pop();
+            i--;
             continue;
+        } else {
+            console.log(`Add ${command.rule.key} to ${parent.rule.key}`);
         }
 
         if (typeof parent[command.rule.key] == 'undefined') {
@@ -30,7 +34,8 @@ function builder(commands) {
         }
 
 
-        parent[command.rule.key].push(command.value);
+        parent[command.rule.key].push(command);
+
         parentChain.push(command);
     }
 
