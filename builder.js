@@ -11,10 +11,18 @@ function converter(main) {
     let reKeyed = {}
 
     for (let room of main.rooms) {
-        console.log(room.value);
+
         reKeyed[room.value] = room;
-        delete reKeyed[room.value].rule;
-        delete reKeyed[room.value].value; //this needs to be deleted last so the room can be identified
+        let convertedRoom = reKeyed[room.value];
+        delete convertedRoom.rule;
+        delete convertedRoom.value
+
+        //clean up elements within
+        for (let attribute in convertedRoom) {
+            for (let element of convertedRoom[attribute]) {
+                convertedRoom[attribute] = element.value;
+            }
+        }
     }
 
     return reKeyed;
