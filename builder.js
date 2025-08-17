@@ -1,20 +1,37 @@
-function isEligibleParent(parentKeys, parent) {
-    for (let key of parentKeys) {
-        if (parent == key) { return true; }
+function isEligibleParent(parent, command) {
+    for (let key of command.rule.parentKeys) {
+        if (parent.rule.key == key) { return true; }
     }
     return false;
 }
 
 function builder(commands) {
-    let main = {};
+    let main = {
+        rule: {
+            key: "main"
+        }
+    };
 
-    let lastElement = main;
+    let parentChain = [main];
 
     for (let i = 0; i < commands.length; i++) {
+
         let command = commands[i];
 
-        lastElement[command.rule.key] = { value: command.value };
-        lastElement = lastElement[command.rule.key];
+        let parent = parentChain[parentChain.length - 1];
+
+        if (!isEligibleParent(parent, command)) {
+            console.log(`${parent.rule.key} is not a proper parent of ${command.rule.key}`);
+            continue;
+        }
+
+        if (typeof parent[command.rule.key] == 'undefined') {
+            parent[command.rule.key] = [];
+        }
+
+
+        parent[command.rule.key].push(command.value);
+        parentChain.push(command);
     }
 
     return main;
