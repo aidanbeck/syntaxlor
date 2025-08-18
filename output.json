@@ -1,12 +1,1 @@
-{
-    "lighthouse": {
-        "givenLocations": "lighthouse",
-        "paragraphs": "You try the door, but it seems jammed.",
-        "buttonPrompt": "Force it open."
-    },
-    "living room": {
-        "givenLocations": "lighthouse",
-        "paragraphs": "It's a beautiful living room.",
-        "buttonPrompt": "Leave the room."
-    }
-}
+{"build":{"recentRoom":null,"recentPath":null,"mostRecent":null},"rooms":{}}

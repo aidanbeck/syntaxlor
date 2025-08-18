@@ -1,4 +1,20 @@
-function builder() {
+const syntax = {
+    templateFunction: origin,
+    defaultFunction: addParagraph,
+    rules: [
+        {symbol:'#', function: addRoom},
+        {symbol:"%", function: addGivenLocation},
+        {symbol:"*", function: addPath},
+        {symbol:">", key: 'targetKey'},
+        {symbol:"@", key: 'enableAlters'},
+        {symbol:"<", key: 'limit'},
+        {symbol:"$", key: 'requiredItem'},
+        {symbol:"-", key: 'takenItem'},
+        {symbol:"+", key: 'givenItem'}
+    ]
+};
+
+function origin(commands, syntax) {
     let object = {
         build: {
             recentRoom: null, //pointer to the most recent room
@@ -44,10 +60,4 @@ function addPath(input, object) {
     object.build.recentRoom.paths.push(path);
 }
 
-module.exports = {
-    builder,
-    addRoom,
-    addGivenLocation,
-    addParagraph,
-    addPath
-};
+module.exports = syntax;
