@@ -52,7 +52,11 @@ function getLatest(object) {
 }
 
 function addRoom(input, object) {
-    object.rooms[input] = {
+
+    let key = input;
+    if (getLatestRoom(object)?.key == input) { key += "_" } //avoid overwriting. Will eventually be erased and put into the original as an alteration.
+
+    object.rooms[key] = {
         "default": {
             key: input, // needed to create default targetKey. There may be a way around this.
             givenLocations:[],
@@ -60,8 +64,8 @@ function addRoom(input, object) {
             paths: []
         }  
     };
-    object.build.latestRoom = object.rooms[input]["default"];
-    object.build.latestEither = object.rooms[input]["default"];
+    object.build.latestRoom = object.rooms[key]["default"];
+    object.build.latestEither = object.rooms[key]["default"];
 }
 
 function addGivenLocation(input, object) {
@@ -77,7 +81,6 @@ function addParagraph(input, object) {
 function addAlteration(input, object) { // This is a monster and should be refactored someday. Value not equivalent to the time investment right now.
 
     if (getLatest(object).paragraphs.length > 0) { // Alter Latest Paragraph
-
         let firstSpace = input.indexOf(' ');
         let changeSignal = input.slice(0,firstSpace);
         let alteredString = input.slice(firstSpace).trim();
@@ -110,9 +113,34 @@ function addAlteration(input, object) { // This is a monster and should be refac
 
         object.build.latestPath = getLatestRoom(object).paths.at(-1)[input]; //most recent path
         object.build.latestEither = getLatestRoom(object).paths.at(-1)[input]; //most recent path
-        
+
     } else { // Alter Latest Room
 
+        // in the text, `#roomKey` will appear before `~signalName`. It will already be defined in the list of rooms.
+        // because `#roomkey# will have the same key as the original room, the room creator adds a '_' to avoid overwriting it.
+        // This block will:
+        // - assume that the latest room is meant to be an alteration
+        // - add it as a variation of the original room (room with the same key, but without the _)
+        // - remove the temporary alteration room
+        // - set the variation room as the latest room
+
+
+        let alterationRoom = getLatestRoom(object);
+        let originalRoom = object.rooms[alterationRoom.key];
+        
+        originalRoom[input] = {
+            key: alterationRoom.key,
+            givenLocations: alterationRoom.givenLocations,
+            paragraphs: alterationRoom.paragraphs,
+            paths: alterationRoom.paths
+        };
+
+        let temporaryKey = alterationRoom.key + "_"
+        delete object.rooms[temporaryKey];
+
+        object.build.latestRoom = originalRoom[input];
+        object.build.latestEither = originalRoom[input];
+        
     }
 
 }

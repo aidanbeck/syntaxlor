@@ -17,3 +17,8 @@ You hesitate before walking inside.
  It's a beautiful living room.
 *Leave the room. > lighthouse
  You leave.
+
+#living room ~flashback %lighthouse
+ The paint still smells new.
+* Leave the newly painted room > lighthouse
+ You leave.
