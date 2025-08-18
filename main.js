@@ -9,9 +9,11 @@ function builder(commands, syntax) {
     let object = syntax.templateFunction();
 
     for (let command of commands) {
-        // command.function(command.value,object);
-        console.log(command);
+        command.function(command.value,object);
+        
     }
+
+    delete object.build;
 
     return object;
 }

@@ -74,7 +74,7 @@ function getCommand(statement, syntax) {
             return {function: rule.function, value: value }; // could instead safe the index of each rule?
         }
     }
-    return {rule: syntax.defaultFunction, value: statement.trim() }; // default/no symbol rule
+    return {function: syntax.defaultFunction, value: statement.trim() }; // default/no symbol rule
 }
 
 function getCommands(string, syntax) {

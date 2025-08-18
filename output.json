@@ -1,1 +1,80 @@
-{"build":{"recentRoom":null,"recentPath":null,"mostRecent":null},"rooms":{}}
+{
+    "rooms": {
+        "lighthouse": {
+            "givenLocations": [
+                "lighthouse"
+            ],
+            "paragraphs": [
+                {
+                    "default": "The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it."
+                },
+                {
+                    "default": "You try the door, but it seems jammed."
+                }
+            ],
+            "paths": [
+                {
+                    "targetKey": "a road",
+                    "buttonPrompt": "Return to the road.",
+                    "paragraphs": [
+                        {
+                            "default": "You walk back down the road."
+                        }
+                    ],
+                    "alterations": [],
+                    "limit": null,
+                    "requiredItems": [],
+                    "givenItems": [],
+                    "takenItems": []
+                },
+                {
+                    "targetKey": "",
+                    "buttonPrompt": "Force it open.",
+                    "paragraphs": [
+                        {
+                            "default": "You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks."
+                        },
+                        {
+                            "default": "The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open."
+                        }
+                    ],
+                    "alterations": [
+                        "breakIn"
+                    ],
+                    "limit": "1",
+                    "requiredItems": [],
+                    "givenItems": [],
+                    "takenItems": [
+                        "axe"
+                    ]
+                }
+            ]
+        },
+        "living room": {
+            "givenLocations": [
+                "lighthouse"
+            ],
+            "paragraphs": [
+                {
+                    "default": "It's a beautiful living room."
+                }
+            ],
+            "paths": [
+                {
+                    "targetKey": "lighthouse",
+                    "buttonPrompt": "Leave the room.",
+                    "paragraphs": [
+                        {
+                            "default": "You leave."
+                        }
+                    ],
+                    "alterations": [],
+                    "limit": null,
+                    "requiredItems": [],
+                    "givenItems": [],
+                    "takenItems": []
+                }
+            ]
+        }
+    }
+}

@@ -5,12 +5,12 @@ const syntax = {
         {symbol:'#', function: addRoom},
         {symbol:"%", function: addGivenLocation},
         {symbol:"*", function: addPath},
-        {symbol:">", key: 'targetKey'},
-        {symbol:"@", key: 'enableAlters'},
-        {symbol:"<", key: 'limit'},
-        {symbol:"$", key: 'requiredItem'},
-        {symbol:"-", key: 'takenItem'},
-        {symbol:"+", key: 'givenItem'}
+        {symbol:">", function: setTargetKey},
+        {symbol:"<", function: setLimit},
+        {symbol:"@", function: addAlteration},
+        {symbol:"$", function: addRequiredItem},
+        {symbol:"-", function: addTakenItem},
+        {symbol:"+", function: addGivenItem}
     ]
 };
 
@@ -60,8 +60,34 @@ function addPath(input, object) {
     }
     object.build.recentRoom.paths.push(path);
 
-    object.build.recentPath = object.rooms.recentRoom.paths.at(-1); //most recent path
-    object.build.mostRecent = object.rooms.recentRoom.paths.at(-1); //most recent path
+    console.log(object.rooms);
+
+    object.build.recentPath = object.build.recentRoom.paths.at(-1); //most recent path
+    object.build.mostRecent = object.build.recentRoom.paths.at(-1); //most recent path
+}
+
+function setTargetKey(input, object) {
+    object.build.recentPath.targetKey = input;
+}
+
+function setLimit(input, object) {
+    object.build.recentPath.limit = input
+}
+
+function addAlteration(input, object) {
+    object.build.recentPath.alterations.push(input);
+}
+
+function addRequiredItem(input, object) {
+    object.build.recentPath.requiredItems.push(input);
+}
+
+function addGivenItem(input, object) {
+    object.build.recentPath.givenItems.push(input);
+}
+
+function addTakenItem(input, object) {
+    object.build.recentPath.takenItems.push(input);
 }
 
 module.exports = syntax;
