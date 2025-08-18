@@ -19,9 +19,9 @@ const syntax = {
 function origin(commands, syntax) {
     let object = {
         build: {
-            recentRoom: null, //pointer to the most recent room
-            recentPath: null, //pointer to the most recent path
-            mostRecent: null //pointer to the most recent path OR room
+            latestRoom: null, //pointer to the most recent room
+            latestPath: null, //pointer to the most recent path
+            latestEither: null //pointer to the most recent path OR room
             // might need most recent paragraph for alternate paragraphs
             // should these store references or keys?
         },
@@ -42,76 +42,103 @@ function final(object) {
     return object;
 }
 
+// Helper Functions
+function getLatestRoom(object) {
+    return object.build.latestRoom;
+}
+function getLatestPath(object) {
+    return object.build.latestPath;
+}
+function getLatest(object) {
+    return object.build.latestEither;
+}
+
 function addRoom(input, object) {
     object.rooms[input] = {
-        key: input, // needed to create default targetKey. There may be a way around this.
-        givenLocations:[],
-        paragraphs: [],
-        paths: []
+        "default": {
+            key: input, // needed to create default targetKey. There may be a way around this.
+            givenLocations:[],
+            paragraphs: [],
+            paths: []
+        }  
     };
-    object.build.recentRoom = object.rooms[input];
-    object.build.mostRecent = object.rooms[input];
+    object.build.latestRoom = object.rooms[input]["default"];
+    object.build.latestEither = object.rooms[input]["default"];
 }
 
 function addGivenLocation(input, object) {
-    object.build.recentRoom.givenLocations.push(input);
+    getLatestRoom(object).givenLocations.push(input);
 }
 
 function addParagraph(input, object) {
+    if (input == "Empty") { input = "" }; // wipe paragraph if using "Empty" keyword
     let paragraph = { "default": input };
-    object.build.mostRecent.paragraphs.push(paragraph);
+    getLatest(object).paragraphs.push(paragraph);
 }
 
 function addAlteration(input, object) {
 
-    let firstSpace = input.indexOf(' ');
+    if (getLatest(object).paragraphs.length > 0) { // Alter Latest Paragraph
 
-    let changeSignal = input.slice(0,firstSpace);
-    let alteredString = input.slice(firstSpace).trim();
-    let mostRecentParagraphs = object.build.mostRecent.paragraphs.at(-1);
-    mostRecentParagraphs[changeSignal] = alteredString;
+        let firstSpace = input.indexOf(' ');
+        let changeSignal = input.slice(0,firstSpace);
+        let alteredString = input.slice(firstSpace).trim();
+        let mostRecentParagraphs = getLatest(object).paragraphs.at(-1);
+        mostRecentParagraphs[changeSignal] = alteredString;
+
+    } else if ('targetKey' in getLatestRoom(object)) { // Alter Latest Path
+        // First a path is defined with `*Prompt Text`, THEN a `~signalName` is used to define that path as an alteration retroactively.
+        // Therefore, the path we want to make into an alteration already exists as a path.
+        // We should assume that the path above *THAT* path is the default/original.
+
+    } else { // Alter Latest Room
+
+    }
 
 }
 
 function addPath(input, object) {
     let path = {
-        targetKey: object.build.recentRoom.key, //most recent room is the default. Should this be defined here, or should an empty string indicate to the navigation function that the current room should be navigated to?
-        buttonPrompt: input,
-        paragraphs: [],
-        changeSignals: [],
-        limit: null,
-        requiredItems: [],
-        givenItems: [],
-        takenItems: []
+        "default": {
+            targetKey: getLatestRoom(object).key, //most recent room is the default. Should this be defined here, or should an empty string indicate to the navigation function that the current room should be navigated to?
+            buttonPrompt: input,
+            paragraphs: [],
+            changeSignals: [],
+            limit: null,
+            requiredItems: [],
+            givenItems: [],
+            takenItems: [],
+            alterations: {}
+        }
     }
-    object.build.recentRoom.paths.push(path);
+    getLatestRoom(object).paths.push(path);
 
-    object.build.recentPath = object.build.recentRoom.paths.at(-1); //most recent path
-    object.build.mostRecent = object.build.recentRoom.paths.at(-1); //most recent path
+    object.build.latestPath = getLatestRoom(object).paths.at(-1)["default"]; //most recent path
+    object.build.latestEither = getLatestRoom(object).paths.at(-1)["default"]; //most recent path
 }
 
 function setTargetKey(input, object) {
-    object.build.recentPath.targetKey = input;
+    getLatestPath(object).targetKey = input;
 }
 
 function setLimit(input, object) {
-    object.build.recentPath.limit = Number(input);
+    getLatestPath(object).limit = Number(input);
 }
 
 function addChangeSignal(input, object) {
-    object.build.recentPath.changeSignals.push(input);
+    getLatestPath(object).changeSignals.push(input);
 }
 
 function addRequiredItem(input, object) {
-    object.build.recentPath.requiredItems.push(input);
+    getLatestPath(object).requiredItems.push(input);
 }
 
 function addGivenItem(input, object) {
-    object.build.recentPath.givenItems.push(input);
+    getLatestPath(object).givenItems.push(input);
 }
 
 function addTakenItem(input, object) {
-    object.build.recentPath.takenItems.push(input);
+    getLatestPath(object).takenItems.push(input);
 }
 
 module.exports = syntax;

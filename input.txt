@@ -10,6 +10,9 @@
  You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks.
  The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open.
 
+*Enter. ~breakIn > lighthouse 2
+You hesitate before walking inside.
+
 #living room %lighthouse
  It's a beautiful living room.
 *Leave the room. > lighthouse
