@@ -1,5 +1,6 @@
 const syntax = {
-    templateFunction: origin,
+    templateFunction: origin, //returns initial object
+    finalFunction: final, //implements any last changes
     defaultFunction: addParagraph,
     rules: [
         {symbol:'#', function: addRoom},
@@ -28,6 +29,11 @@ function origin(commands, syntax) {
     return object;
 }
 
+function final(object) {
+    delete object.build;
+    return object;
+}
+
 function addRoom(input, object) {
     object.rooms[input] = {
         givenLocations:[],
@@ -53,14 +59,12 @@ function addPath(input, object) {
         buttonPrompt: input,
         paragraphs: [],
         alterations: [],
-        limit: Infinity,
+        limit: null,
         requiredItems: [],
         givenItems: [],
         takenItems: []
     }
     object.build.recentRoom.paths.push(path);
-
-    console.log(object.rooms);
 
     object.build.recentPath = object.build.recentRoom.paths.at(-1); //most recent path
     object.build.mostRecent = object.build.recentRoom.paths.at(-1); //most recent path
@@ -71,7 +75,7 @@ function setTargetKey(input, object) {
 }
 
 function setLimit(input, object) {
-    object.build.recentPath.limit = input
+    object.build.recentPath.limit = Number(input);
 }
 
 function addAlteration(input, object) {

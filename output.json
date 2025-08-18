@@ -41,7 +41,7 @@
                     "alterations": [
                         "breakIn"
                     ],
-                    "limit": "1",
+                    "limit": 1,
                     "requiredItems": [],
                     "givenItems": [],
                     "takenItems": [

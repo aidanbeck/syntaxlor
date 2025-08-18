@@ -7,20 +7,14 @@ let commands = getCommands(input, syntax);
 
 function builder(commands, syntax) {
     let object = syntax.templateFunction();
-
     for (let command of commands) {
         command.function(command.value,object);
         
     }
-
-    delete object.build;
+    object = syntax.finalFunction(object);
 
     return object;
 }
 
 let build = builder(commands,syntax);
-
-
-console.log(build);
-
 fs.writeFileSync(`output.json`, JSON.stringify(build));
