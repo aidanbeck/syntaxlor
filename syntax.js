@@ -63,7 +63,7 @@ function addParagraph(input, object) {
 
 function addPath(input, object) {
     let path = {
-        targetKey: object.build.recentRoom.key, //most recent room is the default
+        targetKey: object.build.recentRoom.key, //most recent room is the default. Should this be defined here, or should an empty string indicate to the navigation function that the current room should be navigated to?
         buttonPrompt: input,
         paragraphs: [],
         alterations: [],
