@@ -19,11 +19,9 @@ const syntax = {
 function origin(commands, syntax) {
     let object = {
         build: {
-            latestRoom: null, //pointer to the most recent room
-            latestPath: null, //pointer to the most recent path
-            latestEither: null //pointer to the most recent path OR room
-            // might need most recent paragraph for alternate paragraphs
-            // should these store references or keys?
+            latestRoom: null, //reference to the most recent room
+            latestPath: null, //reference to the most recent path
+            latestEither: null //reference to the most recent path OR room
         },
         rooms: {}
         //position
@@ -76,7 +74,7 @@ function addParagraph(input, object) {
     getLatest(object).paragraphs.push(paragraph);
 }
 
-function addAlteration(input, object) {
+function addAlteration(input, object) { // This is a monster and should be refactored someday. Value not equivalent to the time investment right now.
 
     if (getLatest(object).paragraphs.length > 0) { // Alter Latest Paragraph
 
@@ -86,11 +84,33 @@ function addAlteration(input, object) {
         let mostRecentParagraphs = getLatest(object).paragraphs.at(-1);
         mostRecentParagraphs[changeSignal] = alteredString;
 
-    } else if ('targetKey' in getLatestRoom(object)) { // Alter Latest Path
+    } else if ('targetKey' in getLatest(object)) { // Alter Latest Path
+        
         // First a path is defined with `*Prompt Text`, THEN a `~signalName` is used to define that path as an alteration retroactively.
         // Therefore, the path we want to make into an alteration already exists as a path.
         // We should assume that the path above *THAT* path is the default/original.
 
+        let roomContainingPaths = getLatestRoom(object);
+        let alterationPath = getLatestPath(object);
+        let originalPathIndex = -2;
+        
+        // Copy the newly created "default" path over as an alternate of the path before it.
+        roomContainingPaths.paths.at(originalPathIndex)[input] = {
+            targetKey: alterationPath.targetKey,
+            buttonPrompt: alterationPath.buttonPrompt,
+            paragraphs: alterationPath.paragraphs,
+            changeSignals: alterationPath.changeSignals,
+            limit: alterationPath.limit,
+            requiredItems: alterationPath.requiredItems,
+            givenItems: alterationPath.givenItems,
+            takenItems: alterationPath.takenItems,
+        };
+
+        roomContainingPaths.paths.pop(); // remove temporary alteration path's unique spot
+
+        object.build.latestPath = getLatestRoom(object).paths.at(-1)[input]; //most recent path
+        object.build.latestEither = getLatestRoom(object).paths.at(-1)[input]; //most recent path
+        
     } else { // Alter Latest Room
 
     }
@@ -108,7 +128,6 @@ function addPath(input, object) {
             requiredItems: [],
             givenItems: [],
             takenItems: [],
-            alterations: {}
         }
     }
     getLatestRoom(object).paths.push(path);
