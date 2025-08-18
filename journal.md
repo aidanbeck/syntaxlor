@@ -18,7 +18,7 @@ It might be good to also have one or two global variables defining the most rece
 ---
 
 ## TO-DO
-- ~~Add altered paragraph support~~
-- Add altered path support
-- Add altered room support (?)
-- ignorable characters
+- ~~ Add altered paragraph support ~~
+- ~~ Add altered path support ~~
+- ~~ Add altered room support ~~
+- ~~ ignorable characters ~~

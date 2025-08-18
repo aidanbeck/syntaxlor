@@ -1,12 +1,3 @@
-function startsWithoutSymbol(string, syntax) { //will be useful later to determine if a statement should use the default rule.
-    for (rule of syntax.rules) {
-        if (string.charAt(0) == rule.symbol) {
-            return false;
-        }
-    }
-    return true;
-}
-
 function getSymbolIndexes(string, syntax) {
 
     let indexes = [0]; //start of string added even if symbol is abscent.
@@ -70,11 +61,11 @@ function getStatements(string, syntax) {
 function getCommand(statement, syntax) {
     for (let rule of syntax.rules) {
         if (statement.charAt(0) == rule.symbol) {
-            let value = statement.slice(1,statement.length).trim();
+            let value = statement.slice(1,statement.length).replace('`', '').trim();
             return {function: rule.function, value: value }; // could instead safe the index of each rule?
         }
     }
-    return {function: syntax.defaultFunction, value: statement.trim() }; // default/no symbol rule
+    return {function: syntax.defaultFunction, value: statement.replace('`', '').trim() }; // default/no symbol rule
 }
 
 function getCommands(string, syntax) {

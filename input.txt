@@ -19,6 +19,6 @@ You hesitate before walking inside.
  You leave.
 
 #living room ~flashback %lighthouse
- The paint still smells new.
+ The paint still smells`-new.
 * Leave the newly painted room > lighthouse
  You leave.
