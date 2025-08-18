@@ -6,9 +6,10 @@ const syntax = {
         {symbol:'#', function: addRoom},
         {symbol:"%", function: addGivenLocation},
         {symbol:"*", function: addPath},
+        {symbol:"~", function: addAlteration},
         {symbol:">", function: setTargetKey},
         {symbol:"<", function: setLimit},
-        {symbol:"@", function: addAlteration},
+        {symbol:"@", function: addChangeSignal},
         {symbol:"$", function: addRequiredItem},
         {symbol:"-", function: addTakenItem},
         {symbol:"+", function: addGivenItem}
@@ -61,12 +62,23 @@ function addParagraph(input, object) {
     object.build.mostRecent.paragraphs.push(paragraph);
 }
 
+function addAlteration(input, object) {
+
+    let firstSpace = input.indexOf(' ');
+
+    let changeSignal = input.slice(0,firstSpace);
+    let alteredString = input.slice(firstSpace).trim();
+    let mostRecentParagraphs = object.build.mostRecent.paragraphs.at(-1);
+    mostRecentParagraphs[changeSignal] = alteredString;
+
+}
+
 function addPath(input, object) {
     let path = {
         targetKey: object.build.recentRoom.key, //most recent room is the default. Should this be defined here, or should an empty string indicate to the navigation function that the current room should be navigated to?
         buttonPrompt: input,
         paragraphs: [],
-        alterations: [],
+        changeSignals: [],
         limit: null,
         requiredItems: [],
         givenItems: [],
@@ -86,8 +98,8 @@ function setLimit(input, object) {
     object.build.recentPath.limit = Number(input);
 }
 
-function addAlteration(input, object) {
-    object.build.recentPath.alterations.push(input);
+function addChangeSignal(input, object) {
+    object.build.recentPath.changeSignals.push(input);
 }
 
 function addRequiredItem(input, object) {

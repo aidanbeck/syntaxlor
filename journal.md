@@ -14,3 +14,11 @@ Also, some commands should have a different parent depending on the situation. A
 
 Instead of a single builder, each command will correspond to its own function, and the value will be input into the function.
 It might be good to also have one or two global variables defining the most recently created room and paths.
+
+---
+
+## TO-DO
+- ~~Add altered paragraph support~~
+- Add altered path support
+- Add altered room support (?)
+- ignorable characters
