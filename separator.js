@@ -71,10 +71,10 @@ function getCommand(statement, syntax) {
     for (let rule of syntax.rules) {
         if (statement.charAt(0) == rule.symbol) {
             let value = statement.slice(1,statement.length).trim();
-            return {rule: rule, value: value }; // could instead safe the index of each rule?
+            return {function: rule.function, value: value }; // could instead safe the index of each rule?
         }
     }
-    return {rule: syntax.default, value: statement.trim() }; // default/no symbol rule
+    return {rule: syntax.defaultFunction, value: statement.trim() }; // default/no symbol rule
 }
 
 function getCommands(string, syntax) {

@@ -33,8 +33,9 @@ function addRoom(input, object) {
         givenLocations:[],
         paragraphs: [],
         paths: []
-        
     };
+    object.build.recentRoom = object.rooms[input];
+    object.build.mostRecent = object.rooms[input];
 }
 
 function addGivenLocation(input, object) {
@@ -58,6 +59,9 @@ function addPath(input, object) {
         takenItems: []
     }
     object.build.recentRoom.paths.push(path);
+
+    object.build.recentPath = object.rooms.recentRoom.paths.at(-1); //most recent path
+    object.build.mostRecent = object.rooms.recentRoom.paths.at(-1); //most recent path
 }
 
 module.exports = syntax;
