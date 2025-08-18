@@ -1,65 +1,53 @@
-function isEligibleParent(parent, command) {
-    for (let key of command.rule.parentKeys) {
-        if (parent.rule.key == key) { return true; }
-    }
-    return false;
-}
-
-function converter(main) {
-    delete main.rule;
-
-    let reKeyed = {}
-
-    for (let room of main.rooms) {
-
-        reKeyed[room.value] = room;
-        let convertedRoom = reKeyed[room.value];
-        delete convertedRoom.rule;
-        delete convertedRoom.value
-
-        //clean up elements within
-        for (let attribute in convertedRoom) {
-            for (let element of convertedRoom[attribute]) {
-                convertedRoom[attribute] = element.value;
-            }
-        }
-    }
-
-    return reKeyed;
-}
-
-function builder(commands) {
-    let main = {
-        rule: {
-            key: "main"
-        }
+function builder() {
+    let object = {
+        build: {
+            recentRoom: null, //pointer to the most recent room
+            recentPath: null, //pointer to the most recent path
+            mostRecent: null //pointer to the most recent path OR room
+            // might need most recent paragraph for alternate paragraphs
+        },
+        rooms: {}
     };
 
-    let parentChain = [main];
-
-    for (let i = 0; i < commands.length; i++) {
-
-        let command = commands[i];
-
-        let parent = parentChain[parentChain.length - 1];
-
-        if (!isEligibleParent(parent, command)) {
-            parentChain.pop();
-            i--;
-            continue;
-        }
-
-        if (typeof parent[command.rule.key] == 'undefined') {
-            parent[command.rule.key] = [];
-        }
-
-
-        parent[command.rule.key].push(command);
-
-        parentChain.push(command);
-    }
-
-    return converter(main);
+    return object;
 }
 
-module.exports = builder;
+function addRoom(input, object) {
+    object.rooms[input] = {
+        givenLocations:[],
+        paragraphs: [],
+        paths: []
+        
+    };
+}
+
+function addGivenLocation(input, object) {
+    object.build.recentRoom.givenLocations.push(input);
+}
+
+function addParagraph(input, object) {
+    let paragraph = { "default": input };
+    object.build.mostRecent.paragraphs.push(paragraph);
+}
+
+function addPath(input, object) {
+    let path = {
+        targetKey: "",
+        buttonPrompt: input,
+        paragraphs: [],
+        alterations: [],
+        limit: Infinity,
+        requiredItems: [],
+        givenItems: [],
+        takenItems: []
+    }
+    object.build.recentRoom.paths.push(path);
+}
+
+module.exports = {
+    builder,
+    addRoom,
+    addGivenLocation,
+    addParagraph,
+    addPath
+};
