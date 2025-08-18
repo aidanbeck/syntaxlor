@@ -1,6 +1,7 @@
 {
     "rooms": {
         "lighthouse": {
+            "key": "lighthouse",
             "givenLocations": [
                 "lighthouse"
             ],
@@ -28,7 +29,7 @@
                     "takenItems": []
                 },
                 {
-                    "targetKey": "",
+                    "targetKey": "lighthouse",
                     "buttonPrompt": "Force it open.",
                     "paragraphs": [
                         {
@@ -51,6 +52,7 @@
             ]
         },
         "living room": {
+            "key": "living room",
             "givenLocations": [
                 "lighthouse"
             ],

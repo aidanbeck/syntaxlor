@@ -22,8 +22,15 @@ function origin(commands, syntax) {
             recentPath: null, //pointer to the most recent path
             mostRecent: null //pointer to the most recent path OR room
             // might need most recent paragraph for alternate paragraphs
+            // should these store references or keys?
         },
         rooms: {}
+        //position
+        //locations
+        //items
+        //lastLocation
+        //positionRoom
+        //alteration state list
     };
 
     return object;
@@ -36,6 +43,7 @@ function final(object) {
 
 function addRoom(input, object) {
     object.rooms[input] = {
+        key: input, // needed to create default targetKey. There may be a way around this.
         givenLocations:[],
         paragraphs: [],
         paths: []
@@ -55,7 +63,7 @@ function addParagraph(input, object) {
 
 function addPath(input, object) {
     let path = {
-        targetKey: "",
+        targetKey: object.build.recentRoom.key, //most recent room is the default
         buttonPrompt: input,
         paragraphs: [],
         alterations: [],
