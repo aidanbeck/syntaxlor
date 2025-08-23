@@ -12,7 +12,8 @@ const syntax = {
         {symbol:"@", function: addChangeSignal},
         {symbol:"$", function: addRequiredItem},
         {symbol:"-", function: addTakenItem},
-        {symbol:"+", function: addGivenItem}
+        {symbol:"+", function: addGivenItem},
+        {symbol:">", function: comment}
     ]
 };
 
@@ -186,6 +187,11 @@ function addGivenItem(input, object) {
 
 function addTakenItem(input, object) {
     getLatestPath(object).takenItems.push(input);
+}
+
+function comment(input, object) {
+    console.log(input); // will delete this, but could be good for debugging syntaxlor
+                        // eventually this should probably be a blank function
 }
 
 module.exports = syntax;
