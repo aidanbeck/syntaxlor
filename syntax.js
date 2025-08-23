@@ -13,7 +13,7 @@ const syntax = {
         {symbol:"$", function: addRequiredItem},
         {symbol:"-", function: addTakenItem},
         {symbol:"+", function: addGivenItem},
-        {symbol:">", function: comment}
+        {symbol:"&", function: comment}
     ]
 };
 

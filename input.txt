@@ -2,8 +2,11 @@
  The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it. 
  You try the door, but it seems jammed.  ~breakIn   The door is wide open, the head of an axe embedded into its front.
  Empty                   ~breakIn   What used to be a handle is now splinters on the ground.
+& test
+& test 2
 
 *Return to the road. > a road
+&test3
  You walk back down the road.
 
 *Force it open. -axe @breakIn <1
