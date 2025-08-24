@@ -7,6 +7,7 @@ function getSymbolIndexes(string, syntax) {
             if (string.charAt(index) == rule.symbol) {    //if the character == the rule's symbol (and isn't ignored)
                 if (string.charAt(index-1) == "`") { continue; } // skip if preceded by a `
                 indexes.push(index);
+                // !!! if commentCharacter, don't look for more symbols.
             }
         }
     }
@@ -63,6 +64,9 @@ function getCommand(statement, syntax) {
         if (statement.charAt(0) == rule.symbol) {
             let value = statement.slice(1,statement.length).replace('`', '').trim();
             return {function: rule.function, value: value }; // could instead safe the index of each rule?
+        }
+        if (statement.charAt(0) == syntax.commentCharacter) { //comments
+            return {function: () => {}, value: ""}; // empty command
         }
     }
     return {function: syntax.defaultFunction, value: statement.replace('`', '').trim() }; // default/no symbol rule

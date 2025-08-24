@@ -2,6 +2,7 @@ const syntax = {
     templateFunction: origin, //returns initial object
     finalFunction: final, //implements any last changes
     defaultFunction: addParagraph,
+    commentCharacter: "&",
     rules: [
         {symbol:'#', function: addRoom},
         {symbol:"%", function: addGivenLocation},
@@ -13,7 +14,6 @@ const syntax = {
         {symbol:"$", function: addRequiredItem},
         {symbol:"-", function: addTakenItem},
         {symbol:"+", function: addGivenItem},
-        {symbol:"&", function: comment}
     ]
 };
 
