@@ -8,7 +8,7 @@ let commands = getCommands(input, syntax);
 function builder(commands, syntax) {
     let object = syntax.templateFunction();
     for (let command of commands) {
-        command.function(command.value,object);
+        command.function(command.value, object);
         
     }
     object = syntax.finalFunction(object);
