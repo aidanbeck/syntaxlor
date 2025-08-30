@@ -105,19 +105,11 @@ function addAlteration(input, object) { // This is a monster and should be refac
 
         let roomContainingPaths = getLatestRoom(object);
         let alterationPath = getLatestPath(object);
-        let originalPathIndex = -2;
+        let originalPathIndex = -2; // negative 2 to skip over the temporary new path, since it will be added and then removed
         
         // Copy the newly created "default" path over as an alternate of the path before it.
-        roomContainingPaths.paths.at(originalPathIndex)[input] = {
-            targetKey: alterationPath.targetKey,
-            buttonPrompt: alterationPath.buttonPrompt,
-            paragraphs: alterationPath.paragraphs,
-            changeSignals: alterationPath.changeSignals,
-            limit: alterationPath.limit,
-            requiredItems: alterationPath.requiredItems,
-            givenItems: alterationPath.givenItems,
-            takenItems: alterationPath.takenItems,
-        };
+        let originalPath = roomContainingPaths.paths.at(originalPathIndex);
+        originalPath.addAlteration(input, alterationPath.buttonPrompt, alterationPath.targetKey, alterationPath.paragraphs, alterationPath.signals, alterationPath.requiredItems, alterationPath.givenItems, alterationPath.takenItems);
 
         roomContainingPaths.paths.pop(); // remove temporary alteration path's unique spot
 

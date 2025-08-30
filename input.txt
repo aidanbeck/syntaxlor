@@ -1,9 +1,12 @@
+#a road %a road
+ It's a road!
+*Walk to the lighthouse. > lighthouse
+ You walk to the lighthouse.
+
 #lighthouse %lighthouse
  The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it.
  You try the door, but it seems jammed.  ~breakIn   The door is wide open, the head of an axe embedded into its front.
  Empty                   ~breakIn   What used to be a handle is now splinters on the ground.
-
-& this is a comment.
 
 *Return to the road. > a road
  You walk back down the road.
@@ -12,7 +15,7 @@
  You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks.
  The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open.
 
-*Enter. ~breakIn > lighthouse 2
+*Enter. ~breakIn > living room
 You hesitate before walking inside.
 
 #living room %lighthouse
