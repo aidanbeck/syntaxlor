@@ -54,23 +54,25 @@
  The cabin door is locked, and through the window you can see it's filled with sand that covers most of its contents. However, an old axe still seems salvageable.
 *Salvage axe. $key +axe
  You unlock the door. With your bare hands, you dig it out of the sand.
-*Return to the beach > sandy beach 2
+*Return to the beach. > sandy beach 2
 
 
 & UPPER AREA
 
 #a road %a road
-At the top of the hill, the trail connect to a dirt road. It doesn't look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross.
-*Enter the infirmary tent > infirmary tent
+At the top of the hill, the trail connects to a dirt road. It doesn't look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross.
+*Enter the infirmary tent. > infirmary tent
  You push open the flaps and duck into the tent.
-*Walk to the lighthouse > lighthouse
+*Walk to the lighthouse. > lighthouse
  You begin walking towards it, before stopping in shock. The light has turned on.
+*Head down the trail. > sandy beach 2
+ It's easier on the way down.
 
 #infirmary tent %infirmary tent
  Small single bunks line the sides of the tent, each with a trunk beneath it. An old coat hangs on the closest bed post. You might be able to find some supplies.
 *Exit the tent. > a road
  You're happy to be out of there.
-*Search the cabinet +bandage
+*Search the cabinet. +bandage
  You discover a bandage.
 *Search the trunks +envelope
  You discover an envelope containing a letter. It's familiar.
@@ -95,9 +97,9 @@ At the top of the hill, the trail connect to a dirt road. It doesn't look like a
 #lighthouse 2 %lighthouse
  There is a table inside with a hammer and a handwritten note.
 *Exit. > lighthouse
-*Take Hammer +hammer
+*Take Hammer. +hammer
  Maybe you could fix the door?
-*Read Note
+*Read Note.
  It says...
- "Thank you for playing my demo! My deadline is in 10 minutes, so that's all there is for now `-Developer"
+ "Thank you for playing my demo! My deadline is in 10 minutes, so that's all there is for now `-Developer".
  What a strange thing to find.
