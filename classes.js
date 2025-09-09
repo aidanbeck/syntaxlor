@@ -1,37 +1,46 @@
 class Paragraph {
     constructor(text) {
-        this.addAlteration("default", text);
+        this.default = text;
+        this.variants = {};
     }
-    addAlteration(signal, text) {
-        this[signal] = text;
+    addVariant(signal, text) {
+        let variant = new Paragraph(text);
+        this.variants[signal] = variant.default;
     }
 }
 
 class Path {
-    constructor(buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
-        this.addAlteration("default", buttonPrompt, targetKey, paragraphs, signals, requiredItems, givenItems, takenItems);
+    constructor(buttonPrompt = "prompt", targetRoomKey = '', paragraphs = [], signals = [], requiredItems = [], givenItems = [], takenItems = []) {
+        this.default = {
+            buttonPrompt,
+            targetRoomKey,
+            paragraphs,
+            signals,
+            requiredItems,
+            givenItems,
+            takenItems
+        }
+        this.variants = {};
     }
-    addAlteration(signal, buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
-        this[signal] = {};
-        this[signal].buttonPrompt = buttonPrompt;
-        this[signal].targetKey = targetKey; // key of the room button moves to
-        this[signal].paragraphs = paragraphs;
-        this[signal].signals = signals;
-        this[signal].requiredItems = requiredItems;
-        this[signal].givenItems = givenItems;
-        this[signal].takenItems = takenItems;
+    addVariant(signal, buttonPrompt = "prompt", targetRoomKey = '', paragraphs = [], signals = [], requiredItems = [], givenItems = [], takenItems = []) {
+        let variant = new Path(buttonPrompt, targetRoomKey, paragraphs, signals, requiredItems, givenItems, takenItems);
+        this.variants[signal] = variant.default;
     }
 }
 
 class Room {
-    constructor(givenLocation = '', paragraphs=[], paths=[]) {
-        this.addAlteration("default", givenLocation, paragraphs, paths);
+    constructor(givenLocation = '', paragraphs = [], paths = []) {
+        this.default = {
+            givenLocation,
+            paragraphs,
+            paths
+        }
+        this.variants = {};
+        
     }
-    addAlteration(signal, givenLocation = '', paragraphs=[], paths=[]) {
-        this[signal] = {};
-        this[signal].givenLocation = givenLocation;
-        this[signal].paragraphs = paragraphs;
-        this[signal].paths = paths;
+    addVariant(signal, givenLocation = '', paragraphs = [], paths = []) {
+        let variant = new Room(givenLocation, paragraphs, paths);
+        this.variants[signal] = variant.default;
     }
 }
 
