@@ -4,8 +4,8 @@ const customSyntax = oldCoveSyntax.customSyntax;
 const build = oldCoveSyntax.build;
 
 let inputFilePaths = [
-    "demo.txt",
-    "hospital.txt"
+    "rooms/demo.txt",
+    "rooms/hospital.txt"
 ];
 
 let input = '';

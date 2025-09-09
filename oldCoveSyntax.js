@@ -1,4 +1,4 @@
-import { Syntax, build } from '../syntaxlor.js';
+import { Syntax, build } from 'syntaxlor';
 import { Room, Path, Paragraph } from './oldCoveClasses.js';
 
 let customSyntax = new Syntax(origin, final, addParagraph, '&');

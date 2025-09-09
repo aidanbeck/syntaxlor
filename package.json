@@ -1,22 +1,5 @@
 {
-  "name": "syntaxlor",
-  "version": "0.1.0",
-  "description": "custom syntax creator & compiler",
-  "main": "syntaxlor.js",
-  "directories": {
-    "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aidanbeck/syntaxlor.git"
-  },
-  "author": "aidanbeck",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/aidanbeck/syntaxlor/issues"
-  },
-  "homepage": "https://github.com/aidanbeck/syntaxlor#readme"
+  "dependencies": {
+    "syntaxlor": "^0.1.0"
+  }
 }
