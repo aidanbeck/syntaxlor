@@ -1,4 +1,4 @@
-import { getCommands } from './separator.js';
+import { getCommands } from './commandSeparator.js';
 
 class Syntax {
     constructor(initialFunction, finalFunction, defaultFunction, commentSymbol = '/') {

@@ -1,29 +1,18 @@
-const fs = require('fs');
+import { Syntax, build } from '../syntaxlor.js';
+import { Room, Path, Paragraph } from './oldCoveClasses.js';
 
-const Syntaxlor = require('./main.js');
-const Syntax = Syntaxlor.Syntax;
-const build = Syntaxlor.build;
+let customSyntax = new Syntax(origin, final, addParagraph, '&');
+customSyntax.addRule('#', addRoom);
+customSyntax.addRule("%", setGivenLocation);
+customSyntax.addRule("*", addPath);
+customSyntax.addRule("~", addVariant);
+customSyntax.addRule(">", setTargetRoomKey);
+customSyntax.addRule("@", addSignal);
+customSyntax.addRule("$", addRequiredItem);
+customSyntax.addRule("-", addTakenItem);
+customSyntax.addRule("+", addGivenItem);
 
-const Constructors = require('./classes.js');
-const Room = Constructors.Room;
-const Path = Constructors.Path;
-const Paragraph = Constructors.Paragraph;
-
-let oldCoveSyntax = new Syntax(origin, final, addParagraph, '&');
-oldCoveSyntax.addRule('#', addRoom);
-oldCoveSyntax.addRule("%", setGivenLocation);
-oldCoveSyntax.addRule("*", addPath);
-oldCoveSyntax.addRule("~", addVariant);
-oldCoveSyntax.addRule(">", setTargetRoomKey);
-oldCoveSyntax.addRule("@", addSignal);
-oldCoveSyntax.addRule("$", addRequiredItem);
-oldCoveSyntax.addRule("-", addTakenItem);
-oldCoveSyntax.addRule("+", addGivenItem);
-
-let inputFilePath = "input.txt";
-let input = fs.readFileSync(inputFilePath,'utf-8');
-let output = build(input, oldCoveSyntax);
-fs.writeFileSync(`output.json`, JSON.stringify(output));
+export { customSyntax, build };
 
 /*
     SYNTAX COMMAND FUNCTIONS
