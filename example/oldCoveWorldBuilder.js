@@ -3,11 +3,18 @@ const oldCoveSyntax = require('./oldCoveSyntax.js');
 const customSyntax = oldCoveSyntax.customSyntax;
 const build = oldCoveSyntax.build;
 
-let fileName = "demo";
-let inputFilePath = `${fileName}.txt`;
-let outputFilePath = `${fileName}.json`;
+let inputFilePaths = [
+    "demo.txt",
+    "hospital.txt"
+];
 
-let input = fs.readFileSync(inputFilePath,'utf-8');
+let input = '';
+
+for (let inputFilePath of inputFilePaths) {
+    input += fs.readFileSync(inputFilePath,'utf-8');
+    input += '\n';
+}
+
 let output = build(input, customSyntax);
 
-fs.writeFileSync(outputFilePath, JSON.stringify(output));
+fs.writeFileSync("rooms.json", JSON.stringify(output));

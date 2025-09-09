@@ -1,7 +1,7 @@
 & HOSPITAL
 
 #hospital %hospital
-The two-story hospital lies silent. Grass seeps through the gravel parking lot and ivy climbs up the structure.
+The two`-story hospital lies silent. Grass seeps through the gravel parking lot and ivy climbs up the structure.
 The front door is chained closed with a padlock. You give it a tug, but it doesn't budge.
 ~breakPadlock Loose chains hang from the front door's handles, no longer blocking access.
 * Circle around the hospital. > hospital side
