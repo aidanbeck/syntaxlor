@@ -1,26 +1,33 @@
-// import { Paragraph, Path, Room } from './classes.js';
+const fs = require('fs');
+
+const Syntaxlor = require('./main.js');
+const Syntax = Syntaxlor.Syntax;
+const build = Syntaxlor.build;
+
 const Constructors = require('./classes.js');
 const Room = Constructors.Room;
 const Path = Constructors.Path;
 const Paragraph = Constructors.Paragraph;
 
-const syntax = {
-    templateFunction: origin, //returns initial object
-    finalFunction: final, //implements any last changes
-    defaultFunction: addParagraph,
-    commentCharacter: "&",
-    rules: [
-        {symbol:'#', function: addRoom},
-        {symbol:"%", function: setGivenLocation},
-        {symbol:"*", function: addPath},
-        {symbol:"~", function: addVariant},
-        {symbol:">", function: setTargetRoomKey},
-        {symbol:"@", function: addSignal},
-        {symbol:"$", function: addRequiredItem},
-        {symbol:"-", function: addTakenItem},
-        {symbol:"+", function: addGivenItem},
-    ]
-};
+let oldCoveSyntax = new Syntax(origin, final, addParagraph, '&');
+oldCoveSyntax.addRule('#', addRoom);
+oldCoveSyntax.addRule("%", setGivenLocation);
+oldCoveSyntax.addRule("*", addPath);
+oldCoveSyntax.addRule("~", addVariant);
+oldCoveSyntax.addRule(">", setTargetRoomKey);
+oldCoveSyntax.addRule("@", addSignal);
+oldCoveSyntax.addRule("$", addRequiredItem);
+oldCoveSyntax.addRule("-", addTakenItem);
+oldCoveSyntax.addRule("+", addGivenItem);
+
+let inputFilePath = "input.txt";
+let input = fs.readFileSync(inputFilePath,'utf-8');
+let output = build(input, oldCoveSyntax);
+fs.writeFileSync(`output.json`, JSON.stringify(output));
+
+/*
+    SYNTAX COMMAND FUNCTIONS
+*/
 
 function origin(commands, syntax) {
     let object = {
@@ -63,8 +70,8 @@ function addRoom(input, object) {
     object.rooms[key] = new Room();
     //key: input, // needed to create default targetRoomKey. There may be a way around this.
 
-    object.build.latestRoom = object.rooms[key]["default"];
-    object.build.latestEither = object.rooms[key]["default"];
+    object.build.latestRoom = object.rooms[key].default;
+    object.build.latestEither = object.rooms[key].default;
     object.build.latestKey = input; // used for paths that lead to current room.
 }
 
@@ -73,11 +80,9 @@ function setGivenLocation(input, object) {
 }
 
 function addParagraph(input, object) {
-    console.log(input);
     if (input == "Empty") { input = "" }; // wipe paragraph if using "Empty" keyword
     let paragraph = new Paragraph(input);
 
-    console.log(getLatest(object));
     getLatest(object).paragraphs.push(paragraph); // add paragraph to latest path or room
 }
 
@@ -169,11 +174,3 @@ function addGivenItem(input, object) {
 function addTakenItem(input, object) {
     getLatestPath(object).takenItems.push(input);
 }
-
-function comment(input, object) {
-    console.log(input); // will delete this, but could be good for debugging syntaxlor
-                        // eventually this should probably be a blank anonymous function
-}
-
-module.exports = syntax;
-// export default syntax;
