@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "syntaxlor": "^0.1.0"
+    "syntaxlor": "*"
   }
 }
